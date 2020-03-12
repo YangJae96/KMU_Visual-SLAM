@@ -25,7 +25,7 @@ from opensfm import mesh_data
 from opensfm import undistort
 from opensfm import undistorted_dataset
 from opensfm import compute_depthmaps
-
+from opensfm import visualizer
 
 from opensfm import log
 from opensfm import io
@@ -74,6 +74,9 @@ class SLAM():
 		ply= io.reconstruction_to_ply(self.data.reconstructions_as_json)
 		with io.open_wt(self.data._depthmap_path() + '/SLAM.ply') as fout:
 		        fout.write(ply)
+
+		visualizer=visualizer.Visualizer()
+		visualizer.run()
 
 	def undistorting(self):
 		undistort.run(self.data)

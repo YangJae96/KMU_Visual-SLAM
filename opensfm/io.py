@@ -943,9 +943,9 @@ def ply_header(count_vertices, with_normals=False):
             "property float nx",
             "property float ny",
             "property float nz",
-            "property uchar diffuse_red",
-            "property uchar diffuse_green",
-            "property uchar diffuse_blue",
+            "property uchar red",
+            "property uchar green",
+            "property uchar blue",
             "end_header",
         ]
     else:
@@ -956,9 +956,9 @@ def ply_header(count_vertices, with_normals=False):
             "property float x",
             "property float y",
             "property float z",
-            "property uchar diffuse_red",
-            "property uchar diffuse_green",
-            "property uchar diffuse_blue",
+            "property uchar red",
+            "property uchar green",
+            "property uchar blue",
             "end_header",
         ]
     return header
