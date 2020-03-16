@@ -1377,11 +1377,7 @@ def incremental_reconstruction(data, graph):
 
     #gcp = data.load_ground_control_points()
     gcp=[]
-    print(remaining_images)
-    print(camera_priors)
-    
-    cnt=0
-    
+        
     common_tracks = tracking.all_common_tracks(graph, tracks)
     reconstructions = []
     pairs = compute_image_pairs(common_tracks, camera_priors, data)
@@ -1402,20 +1398,12 @@ def incremental_reconstruction(data, graph):
                 remaining_images.remove(im2)
                 reconstruction, rec_report['grow'] = grow_reconstruction(
                     data, graph, graph_inliers, reconstruction, remaining_images, camera_priors, gcp)
-                reconstructions.append(reconstruction)
-                cnt=cnt+1
-                
-                # print(type(reconstruction))
-                # print(reconstruction.cameras)
-                # print(reconstruction.shots)
-                # reconstructions.update({"mike":reconstruction})
-
+                reconstructions.append(reconstruction)                
                 reconstructions = sorted(reconstructions,
                                          key=lambda x: -len(x.shots))
                 rec_report['stats'] = compute_statistics(reconstruction, graph_inliers)
                 logger.info(rec_report['stats'])
 
-    print("cnt== ", cnt)
     for k, r in enumerate(reconstructions):
         logger.info("Reconstruction {}: {} images, {} points".format(
             k, len(r.shots), len(r.points)))
