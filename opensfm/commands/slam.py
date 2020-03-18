@@ -81,7 +81,7 @@ class SLAM():
 			del webcam
 			del self.data 
 
-			if slam_num==2:
+			if slam_nuvisualizingm==2:
 				break
 		# slam.undistorting()
 		# slam.compute_depthmaps()
@@ -96,9 +96,10 @@ class SLAM():
 
 	def visualize_slam(self, ply, num):		
 		slam_num="/{}_SLAM.ply".format(num)
-		with io.open_wt(self.data._depthmap_path() + slam_num) as fout:
-		        fout.write(ply)
-		self.visualizing.run()
+		# with io.open_wt(self.data._depthmap_path() + slam_num) as fout:
+		#         fout.write(ply)
+		        
+		self.visualizing.run(ply)
 
 	def reconstruct(self, data):
 		recon_3d=Reconstruction(data, self.visualizing)
@@ -154,7 +155,7 @@ class Webcam():
 		self.data_path=data_path
 
 	def save_webcamImage(self):
-		cap=cv.VideoCapture(0)
+		cap=cv.VideoCapture(2)
 		i=0
 		count=1
 		self.image_list={}

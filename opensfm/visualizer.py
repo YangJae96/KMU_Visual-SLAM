@@ -14,6 +14,8 @@ class Visualizer:
         self.temp_ply_list = []
         self.lists = []
 
+
+
     def ply_load(self, new_ply_list):
         self.ply_lists = []
         for ply in new_ply_list:
@@ -28,7 +30,7 @@ class Visualizer:
         self.flag_key_exit = True
         return False
 
-    def run(self):
+    def run(self, ply):
         vis = o3d.visualization.VisualizerWithKeyCallback()
         vis.register_key_callback(self.space_value, self.space_callback)
         vis.register_key_callback(self.exit_value, self.exit_callback)
@@ -39,7 +41,6 @@ class Visualizer:
             self.lists = glob.glob(self.ply_path)
             print(self.lists)
             print(type(self.lists))
-            exit()
             if self.temp_ply_list != self.lists:
                 # print("exist ply file")
                 new_ply_list = list(set(self.lists) - set(self.temp_ply_list))
