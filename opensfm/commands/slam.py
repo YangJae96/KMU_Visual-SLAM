@@ -48,8 +48,9 @@ logging.getLogger("Starting Webcam!!").setLevel(logging.WARNING)
 
 
 class SLAM():
-	def __init__(self, data_path):
+	def __init__(self, data_path, webcam_status):
 		self.data_path=data_path
+		self.webcam_status=webcam_status
 		self.visualizing=visualizer.Visualizer()
 
 	def run(self):
@@ -59,23 +60,28 @@ class SLAM():
 			
 		while True:
 			webcam=Webcam(self.data_path)
-			self.image_list=webcam.save_webcamImage()
+
+			if self.webcam_status == '0':
+				self.image_list = webcam.load_image_list()
+			elif self.webcam_status == '1':	
+				self.image_list = webcam.save_webcamImage()
 			print(self.image_list.keys())
 					
 			start=time.time()
-			data=dataset.DataSet(self.data_path,self.image_list)		
-			self.reconstruct(data,slam_num)
+			self.data=dataset.DataSet(self.data_path,self.image_list)		
+			reconstruction = self.reconstruct(self.data)
 			end=time.time()
 			recon_time=end-start
 			print("Reconstruction Time == {:.0f}m {:.0f}s".format(recon_time//60, recon_time%60))
 
+			self.visualize_slam(reconstruction, slam_num)
 			print('available memory== ', memory_available())
 			print("current memory usage==", current_memory_usage())
 			slam_num=slam_num+1
 			del webcam
-			del data 
+			del self.data 
 
-			if slam_num==3:
+			if slam_num==2:
 				break
 		# slam.undistorting()
 		# slam.compute_depthmaps()
@@ -88,19 +94,27 @@ class SLAM():
 		# slam_time=end-start
 		# print("Total SLAM Time == {:.0f}m {:.0f}s".format(slam_time//60, slam_time%60))	
 
-	def reconstruct(self, data, slam_num):
-		recon_3d=Reconstruction(data,self.data_path)
+	def visualize_slam(self, ply, num):		
+		slam_num="/{}_SLAM.ply".format(num)
+		with io.open_wt(self.data._depthmap_path() + slam_num) as fout:
+		        fout.write(ply)
+		self.visualizing.run()
+
+	def reconstruct(self, data):
+		recon_3d=Reconstruction(data, self.visualizing)
 		recon_3d.Metadata()
 		recon_3d.detect_Features()
 		recon_3d.match_Features()
 		recon_3d.create_tracks()
-		recon_3d.reconstruct()
-		recon_3d.visualize_slam(slam_num)
+		reconstruction=recon_3d.reconstruct()
+		return reconstruction
+		
 
 class Reconstruction(SLAM):
-	def __init__(self,data, data_path):
+	def __init__(self,data, visualizing):
 		self.data=data
-		super().__init__(data_path)
+		self.visualizing=visualizing
+		#super().__init__(data_path, webcam_status)
 		
 	def Metadata(self):
 		self.meta_data=extract_metadata.run(self.data)
@@ -118,17 +132,17 @@ class Reconstruction(SLAM):
 
 	def reconstruct(self):
 		reconstruct.run(self.data)
-
+		ply= io.reconstruction_to_ply(self.data.reconstructions_as_json)
+		return ply
 	# def mesh(self):
 	# 	mesh_data.run(self.data)
+	# def visualize_slam(self, num):
+	# 	ply= io.reconstruction_to_ply(self.data.reconstructions_as_json)
+	# 	slam_num="/{}_SLAM.ply".format(num)
+	# 	with io.open_wt(self.data._depthmap_path() + slam_num) as fout:
+	# 	        fout.write(ply)
+	# 	self.visualizing.run()
 	
-	def visualize_slam(self, num):
-		ply= io.reconstruction_to_ply(self.data.reconstructions_as_json)
-		slam_num="/{}_SLAM.ply".format(num)
-		with io.open_wt(self.data._depthmap_path() + slam_num) as fout:
-		        fout.write(ply)
-		self.visualizing.run()
-
 	def undistorting(self):
 		undistort.run(self.data)
 	
@@ -140,7 +154,7 @@ class Webcam():
 		self.data_path=data_path
 
 	def save_webcamImage(self):
-		cap=cv.VideoCapture(2)
+		cap=cv.VideoCapture(0)
 		i=0
 		count=1
 		self.image_list={}
@@ -158,7 +172,6 @@ class Webcam():
 		    if i%40==0:
 		    	img_name = "{}.jpg".format(count-1)
 		    	cv.imwrite(os.path.join(image_path, img_name),frame)
-		    	#self.image_list.append(frame)
 		    	
 		    	self.image_list.update({img_name:frame})
 		    	logging.info('Capturing Images for {}'.format(img_name))
@@ -175,10 +188,29 @@ class Webcam():
 
 		return self.image_list
 
+	def load_image_list(self):
+		print(self.data_path)
+		return self._set_image_path(os.path.join(self.data_path, 'images'))
+
+	def _is_image_file(self, filename):
+		extensions = {'jpg', 'jpeg', 'png', 'tif', 'tiff', 'pgm', 'pnm', 'gif'}
+		return filename.split('.')[-1].lower() in extensions
+
+	def _set_image_path(self, data_path):
+
+		self.image_list = {}
+		if os.path.exists(data_path):
+		    for name in os.listdir(data_path):
+		        name = six.text_type(name)
+		        if self._is_image_file(name):
+		        	frame=cv.imread(os.path.join(data_path,name), 1)		
+		        	#print(frame.shape)
+		        	self.image_list.update({name:frame})
+		return self.image_list
 
 def run_slam(args):
 	print(args)
-	slam=SLAM(args.dataset)
+	slam=SLAM(args.dataset, args.webcam)
 	slam.run()
 
 class Command:
@@ -187,7 +219,7 @@ class Command:
 
 	def add_arguments(self, parser):
 		parser.add_argument('dataset', help='dataset to process')
-		#parser.add_argument('webcam', help='webcam status 0:off  1: on')
+		parser.add_argument('webcam', help='webcam status 0:off  1: on')
 
 	def run(self, args):
 		run_slam(args)

@@ -13,7 +13,6 @@ class Visualizer:
         self.ply_path = '/home/yjw/KMU_SLAM/data/maintest/1_SLAM.ply'
         self.temp_ply_list = []
         self.lists = []
-        self.create_window()
 
     def ply_load(self, new_ply_list):
         self.ply_lists = []
@@ -29,33 +28,33 @@ class Visualizer:
         self.flag_key_exit = True
         return False
 
-    def create_window():
-        self.vis = o3d.visualization.VisualizerWithKeyCallback()
-        self.vis.register_key_callback(self.space_value, self.space_callback)
-        self.vis.register_key_callback(self.exit_value, self.exit_callback)
-        self.window = self.vis.create_window('KMU_SLAM', width = 1920, height = 1080)
-
-
     def run(self):
-        
+        vis = o3d.visualization.VisualizerWithKeyCallback()
+        vis.register_key_callback(self.space_value, self.space_callback)
+        vis.register_key_callback(self.exit_value, self.exit_callback)
+        self.window = vis.create_window('KMU_SLAM', width = 1920, height = 1080)
+
         while not self.flag_key_exit:
             # if self.flag_key_space:
             self.lists = glob.glob(self.ply_path)
+            print(self.lists)
+            print(type(self.lists))
+            exit()
             if self.temp_ply_list != self.lists:
                 # print("exist ply file")
                 new_ply_list = list(set(self.lists) - set(self.temp_ply_list))
                 self.ply_load(new_ply_list)
 
                 for i in range(len(new_ply_list)):
-                    self.vis.add_geometry(self.ply_lists[i])
+                    vis.add_geometry(self.ply_lists[i])
 
-                    self.vis.poll_events()
-                    self.vis.update_renderer()
+                    vis.poll_events()
+                    vis.update_renderer()
 
                 print("Add geometry")
                 print("update renderer")
                 self.temp_ply_list = self.lists
 
             else:
-                self.vis.poll_events()
-                self.vis.update_renderer()
+                vis.poll_events()
+                vis.update_renderer()
