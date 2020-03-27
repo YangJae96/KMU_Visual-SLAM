@@ -1,0 +1,95 @@
+{
+    "wall_time": 0.6321635990000001,
+    "num_pairs": 21,
+    "pairs": [
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-44.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-28.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-44.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-15.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-44.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-36.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-44.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-44.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-44.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-32.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-44.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-40.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-32.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-28.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-32.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-36.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-32.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-15.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-32.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-32.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-32.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-40.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-15.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-15.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-15.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-36.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-15.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-40.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-15.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-28.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-36.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-36.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-36.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-28.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-36.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-40.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-40.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-40.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-40.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-28.jpeg"
+        ],
+        [
+            "KakaoTalk_Photo_2020-03-27-11-40-28.jpeg",
+            "KakaoTalk_Photo_2020-03-27-11-40-28.jpeg"
+        ]
+    ],
+    "num_pairs_distance": 0,
+    "num_pairs_time": 0,
+    "num_pairs_order": 0,
+    "num_pairs_bow": 0,
+    "num_pairs_vlad": 0
+}

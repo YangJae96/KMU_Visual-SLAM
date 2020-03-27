@@ -15,6 +15,7 @@ import pickle
 import six
 import networkx as nx
 from guppy import hpy
+import open3d as o3d
 
 
 from opensfm import dataset
@@ -44,9 +45,6 @@ from PIL import Image
 logger = logging.getLogger(__name__)
 logging.getLogger("Starting Webcam!!").setLevel(logging.WARNING)
 
-
-
-
 class SLAM():
 	def __init__(self, data_path, webcam_status):
 		self.data_path=data_path
@@ -69,12 +67,15 @@ class SLAM():
 					
 			start=time.time()
 			self.data=dataset.DataSet(self.data_path,self.image_list)		
-			reconstruction = self.reconstruct(self.data)
+			pointcloud = self.reconstruct(self.data)
 			end=time.time()
 			recon_time=end-start
 			print("Reconstruction Time == {:.0f}m {:.0f}s".format(recon_time//60, recon_time%60))
 
-			self.visualize_slam(reconstruction, slam_num)
+			self.visualizing.run(pointcloud)
+
+			# self.visualize_slam(reconstruction, slam_num)
+
 			print('available memory== ', memory_available())
 			print("current memory usage==", current_memory_usage())
 			slam_num=slam_num+1
@@ -94,11 +95,11 @@ class SLAM():
 		# slam_time=end-start
 		# print("Total SLAM Time == {:.0f}m {:.0f}s".format(slam_time//60, slam_time%60))	
 
-	def visualize_slam(self, ply, num):		
-		slam_num="/{}_SLAM.ply".format(num)
-		with io.open_wt(self.data._depthmap_path() + slam_num) as fout:
-		        fout.write(ply)
-		self.visualizing.run()
+	# def visualize_slam(self, ply, num):
+	# 	slam_num="/{}_SLAM.ply".format(num)
+	# 	with io.open_wt(self.data._depthmap_path() + slam_num) as fout:
+	# 	        fout.write(ply)
+	# 	self.visualizing.run()
 
 	def reconstruct(self, data):
 		recon_3d=Reconstruction(data, self.visualizing)
@@ -106,12 +107,13 @@ class SLAM():
 		recon_3d.detect_Features()
 		recon_3d.match_Features()
 		recon_3d.create_tracks()
-		reconstruction=recon_3d.reconstruct()
-		return reconstruction
+		pointcloud=recon_3d.reconstruct()
+		return pointcloud
 		
 
 class Reconstruction(SLAM):
-	def __init__(self,data, visualizing):
+	def __init__(self, data, visualizing):
+		self.report = {}
 		self.data=data
 		self.visualizing=visualizing
 		#super().__init__(data_path, webcam_status)
@@ -131,17 +133,35 @@ class Reconstruction(SLAM):
 		create_tracks.run(self.data)
 
 	def reconstruct(self):
-		reconstruct.run(self.data)
-		ply= io.reconstruction_to_ply(self.data.reconstructions_as_json)
-		return ply
-	# def mesh(self):
-	# 	mesh_data.run(self.data)
-	# def visualize_slam(self, num):
-	# 	ply= io.reconstruction_to_ply(self.data.reconstructions_as_json)
-	# 	slam_num="/{}_SLAM.ply".format(num)
-	# 	with io.open_wt(self.data._depthmap_path() + slam_num) as fout:
-	# 	        fout.write(ply)
-	# 	self.visualizing.run()
+		reconstructions = reconstruct.run(self.data)[0]
+		reconstructions_points = list(reconstructions.points.values())
+		reconstructions_pose = list(reconstructions.shots.values())
+
+		pointcloud = o3d.geometry.PointCloud()
+		coordinates = []
+		color = []
+		pose_color = [255, 0, 0]
+
+		for i in range(len(reconstructions_points)):
+			temp = []
+			coordinates.append(reconstructions_points[i].coordinates)
+			for ele in reconstructions_points[i].color:
+				temp.append(ele/255)
+			color.append(temp)
+
+		for i in range(len(reconstructions_pose)):
+			coordinates.append(reconstructions_pose[i].pose.get_origin())
+			color.append(pose_color)
+
+		coordinates_np = np.array(coordinates, dtype=np.float64)
+		color_np = np.array(color, dtype=np.float64)
+
+		pointcloud.points = o3d.utility.Vector3dVector(coordinates_np)
+		pointcloud.colors = o3d.utility.Vector3dVector(color_np)
+
+		reconstruct
+		return pointcloud
+		
 	
 	def undistorting(self):
 		undistort.run(self.data)
@@ -154,7 +174,7 @@ class Webcam():
 		self.data_path=data_path
 
 	def save_webcamImage(self):
-		cap=cv.VideoCapture(0)
+		cap=cv.VideoCapture(1)
 		i=0
 		count=1
 		self.image_list={}

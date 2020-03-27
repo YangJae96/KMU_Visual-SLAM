@@ -1013,7 +1013,11 @@ def reconstruction_to_ply(reconstruction, no_cameras=False, no_points=False):
                 c = 255 * np.eye(3)[axis]
                 for depth in np.linspace(0, 2, 10):
                     p = o + depth * R[axis]
+                    print("여기야 여기 p")
+                    print(p)
                     s = "{} {} {} {} {} {}".format(
                         p[0], p[1], p[2], int(c[0]), int(c[1]), int(c[2]))
                     vertices.append(s)
+                    print("여기야 여기 s")
+                    print(s)
     return points_to_ply_string(vertices)

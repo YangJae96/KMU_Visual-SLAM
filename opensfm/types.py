@@ -1,4 +1,3 @@
-"""Basic types for building a reconstruction."""
 
 import numpy as np
 import cv2

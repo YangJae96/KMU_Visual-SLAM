@@ -1,75 +1,75 @@
 {
-    "wall_time": 5.119034340001235,
+    "wall_time": 1.860199256,
     "image_reports": [
         {
-            "image": "0.jpg",
-            "num_features": 2129,
-            "wall_time": 0.7441481470013969
-        },
-        {
-            "image": "11.jpg",
-            "num_features": 3058,
-            "wall_time": 1.297550734001561
-        },
-        {
-            "image": "13.jpg",
-            "num_features": 2851,
-            "wall_time": 1.0512389460018312
+            "image": "8.jpg",
+            "num_features": 3308,
+            "wall_time": 0.5187093859999998
         },
         {
             "image": "9.jpg",
-            "num_features": 3396,
-            "wall_time": 1.2232194940006593
+            "num_features": 3401,
+            "wall_time": 0.539863821
+        },
+        {
+            "image": "12.jpg",
+            "num_features": 2884,
+            "wall_time": 0.45659658699999994
+        },
+        {
+            "image": "13.jpg",
+            "num_features": 2844,
+            "wall_time": 0.457676298
+        },
+        {
+            "image": "11.jpg",
+            "num_features": 3063,
+            "wall_time": 0.4725588209999998
+        },
+        {
+            "image": "10.jpg",
+            "num_features": 3341,
+            "wall_time": 0.5174296169999999
+        },
+        {
+            "image": "4.jpg",
+            "num_features": 2944,
+            "wall_time": 0.44847764199999984
+        },
+        {
+            "image": "5.jpg",
+            "num_features": 3029,
+            "wall_time": 0.46020347000000017
+        },
+        {
+            "image": "7.jpg",
+            "num_features": 3475,
+            "wall_time": 0.5441432330000002
         },
         {
             "image": "6.jpg",
-            "num_features": 3259,
-            "wall_time": 1.1846576380012266
+            "num_features": 3257,
+            "wall_time": 0.5055465679999998
+        },
+        {
+            "image": "2.jpg",
+            "num_features": 2756,
+            "wall_time": 0.430045539
+        },
+        {
+            "image": "3.jpg",
+            "num_features": 2749,
+            "wall_time": 0.4351044559999999
         },
         {
             "image": "1.jpg",
             "num_features": 2375,
-            "wall_time": 0.8554981300003419
+            "wall_time": 0.36686872199999954
         },
         {
-            "image": "5.jpg",
-            "num_features": 3036,
-            "wall_time": 1.0249253879992466
-        },
-        {
-            "image": "3.jpg",
-            "num_features": 2750,
-            "wall_time": 0.9911340500002552
-        },
-        {
-            "image": "7.jpg",
-            "num_features": 3473,
-            "wall_time": 1.2579928019986255
-        },
-        {
-            "image": "4.jpg",
-            "num_features": 2943,
-            "wall_time": 1.0813857440007268
-        },
-        {
-            "image": "8.jpg",
-            "num_features": 3310,
-            "wall_time": 1.2188317779982754
-        },
-        {
-            "image": "12.jpg",
-            "num_features": 2883,
-            "wall_time": 1.0946019449984306
-        },
-        {
-            "image": "10.jpg",
-            "num_features": 3351,
-            "wall_time": 0.9819828250001592
-        },
-        {
-            "image": "2.jpg",
-            "num_features": 2754,
-            "wall_time": 0.7480655840008694
+            "image": "0.jpg",
+            "num_features": 2150,
+            "wall_time": 0.3313053220000004
         }
     ]
 }

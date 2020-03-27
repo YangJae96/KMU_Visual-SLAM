@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libbundle.a  CMakeFiles/bundle.dir/src/bundle_adjuster.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libbundle.a

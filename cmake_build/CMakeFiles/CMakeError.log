@@ -1,0 +1,19 @@
+Determining if the function sgemm_ exists failed with the following output:
+Change Dir: /Users/chaejaemin/slam/KMU_Visual-SLAM/cmake_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_8bf1f/fast && /Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_8bf1f.dir/build.make CMakeFiles/cmTC_8bf1f.dir/build
+Building C object CMakeFiles/cmTC_8bf1f.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=sgemm_ -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -fPIE   -o CMakeFiles/cmTC_8bf1f.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.16.5/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_8bf1f
+/usr/local/Cellar/cmake/3.16.5/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8bf1f.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=sgemm_ -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8bf1f.dir/CheckFunctionExists.c.o  -o cmTC_8bf1f 
+Undefined symbols for architecture x86_64:
+  "_sgemm_", referenced from:
+      _main in CheckFunctionExists.c.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: *** [cmTC_8bf1f] Error 1
+make: *** [cmTC_8bf1f/fast] Error 2
+
+
+

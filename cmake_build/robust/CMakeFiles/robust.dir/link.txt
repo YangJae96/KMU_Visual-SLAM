@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc librobust.a  CMakeFiles/robust.dir/src/instanciations.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib librobust.a

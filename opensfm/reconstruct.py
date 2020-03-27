@@ -20,14 +20,17 @@ def run(data):
     with open(data.profile_log(), 'a') as fout:
         fout.write('reconstruct: {0}\n'.format(end - start))
     
-    print(type(reconstructions))
-    
+    # print(type(reconstructions))
+    #
+    # print(reconstructions)
 
     data.reconstructions=reconstructions
-    data.save_reconstruction_to_json(reconstructions[0])
+    # data.save_reconstruction_to_json(reconstructions[0])
 
-    data.save_reconstruction(reconstructions)
-    data.save_report(io.json_dumps(report), 'reconstruction.json')
+    # data.save_reconstruction(reconstructions)
+    # print(io.json_dumps(report))
+    # data.save_report(io.json_dumps(report), 'reconstruction.json')
+    return reconstructions
 
     
     

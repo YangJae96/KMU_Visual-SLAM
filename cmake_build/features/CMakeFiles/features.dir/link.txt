@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libfeatures.a  CMakeFiles/features.dir/src/akaze_bind.cc.o CMakeFiles/features.dir/src/hahog.cc.o CMakeFiles/features.dir/src/matching.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libfeatures.a
